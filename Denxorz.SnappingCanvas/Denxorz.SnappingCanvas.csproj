@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>WPF canvas that lets the user drag elements on the canvas. Helps user by snapping the elements close to each other.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>Denxorz</Authors>
+    <PackageProjectUrl>https://github.com/denxorz/SnappingCanvas</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/denxorz/SnappingCanvas/raw/master/icons8-connected-50.png</PackageIconUrl>
+    <PackageTags>wpf drag canvas snap</PackageTags>
+    <RepositoryUrl>https://github.com/denxorz/SnappingCanvas</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="WPF.JoshSmith.Controls.DragCanvas" Version="1.1.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29424.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Denxorz.SnappingCanvas", "Denxorz.SnappingCanvas\Denxorz.SnappingCanvas.csproj", "{D5C3A939-11AA-4372-B355-26C4BC3B683D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample", "Sample\Sample.csproj", "{CD34709A-63BC-4DC6-AAB7-C92BF492420A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5D47314D-019F-4EB4-9B80-CDAE779B5B9F}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		icons8-connected-50.png = icons8-connected-50.png
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D5C3A939-11AA-4372-B355-26C4BC3B683D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5C3A939-11AA-4372-B355-26C4BC3B683D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5C3A939-11AA-4372-B355-26C4BC3B683D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5C3A939-11AA-4372-B355-26C4BC3B683D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD34709A-63BC-4DC6-AAB7-C92BF492420A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD34709A-63BC-4DC6-AAB7-C92BF492420A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD34709A-63BC-4DC6-AAB7-C92BF492420A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD34709A-63BC-4DC6-AAB7-C92BF492420A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86FD962E-CD89-4D93-82C5-9AA1531572DF}
+	EndGlobalSection
+EndGlobal
