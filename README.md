@@ -1,5 +1,7 @@
 # Denxorz.DragCanvas
 
+[![Build status](https://github.com/denxorz/SnappingCanvas/workflows/.NET%20Core/badge.svg)](https://github.com/denxorz/SnappingCanvas/actions) [![NuGet](https://buildstats.info/nuget/Denxorz.SnappingCanvas)](https://www.nuget.org/packages/Denxorz.SnappingCanvas/) [![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/denxorz/SnappingCanvas/blob/master/LICENSE.md)
+
 ## What does it do?
 A Canvas which manages dragging of the UIElements it contains. This Canvas is made by Josh Smith.
 
