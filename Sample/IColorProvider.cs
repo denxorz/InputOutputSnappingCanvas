@@ -1,9 +1,9 @@
-﻿using System.Drawing;
+﻿using System.Windows.Media;
 
 namespace Sample
 {
     public interface IColorProvider
     {
-        Color Color { get; }
+        SolidColorBrush Color { get; }
     }
 }

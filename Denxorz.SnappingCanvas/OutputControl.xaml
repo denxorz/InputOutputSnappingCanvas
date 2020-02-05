@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Denxorz.OutControl"
+    x:Class="Denxorz.SnappingCanvas.OutputControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,7 +12,7 @@
         <Style TargetType="{x:Type Ellipse}">
             <Setter Property="Fill" Value="Gray" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding DataContext.SnappedInput}" Value="{x:Null}">
+                <DataTrigger Binding="{Binding DataContext.ConnectedInput}" Value="{x:Null}">
                     <Setter Property="Fill" Value="{x:Null}" />
                 </DataTrigger>
             </Style.Triggers>

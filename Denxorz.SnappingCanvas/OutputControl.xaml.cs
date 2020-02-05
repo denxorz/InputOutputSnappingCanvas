@@ -1,37 +1,32 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Denxorz
+namespace Denxorz.SnappingCanvas
 {
-    public partial class OutControl : INotifyPropertyChanged, ISnapOutput
+    public partial class OutputControl : INotifyPropertyChanged, IConnectionOutput
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public event EventHandler Snapped;
+        public event EventHandler ConnectionChanged;
 
-        private ISnapInput snappedInput;
+        private IConnectionInput snappedInput;
 
-        public ISnapInput SnappedInput
+        public IConnectionInput ConnectedInput
         {
             get { return snappedInput; }
             set
             {
                 snappedInput = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SnappedInput)));
-                Snapped?.Invoke(this, EventArgs.Empty);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConnectedInput)));
+                ConnectionChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
-        public object Attached { get; set; }
+        public object ObjectToOutput { get; set; }
         
-        public OutControl()
+        public OutputControl()
         {
             InitializeComponent();
             DataContext = this;
-        }
-
-        public object GetLinkedObject()
-        {
-            return SnappedInput?.Attached;
         }
     }
 }

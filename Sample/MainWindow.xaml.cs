@@ -1,8 +1,6 @@
-﻿using System.Windows;
-
-namespace Sample
+﻿namespace Sample
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {

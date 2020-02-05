@@ -6,42 +6,25 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using WPF.JoshSmith.Controls;
 
-namespace Denxorz
+namespace Denxorz.SnappingCanvas
 {
-    public class SnappingDragCanvas : DragCanvas
+    public class InputOutputSnappingCanvas : DragCanvas
     {
         private const int snapThresholdX = 5;
         private const int snapThresholdY = 5;
         private bool hasSnapped = false;
         private Point lastSnap = new Point(0, 0);
 
-        //public IReadOnlyCollection<UserControl> GetAllUserControls(Panel panel)
-        //{
-        //    List<UserControl> all = new List<UserControl>();
-        //    foreach(var control in panel.Children)
-        //    {
-        //        if (control is Panel p)
-        //        {
-        //            all.AddRange(GetAllUserControls(p));
-        //        }
-        //        else if (control is UserControl c)
-        //        {
-        //            all.Add(c);
-        //        }
-        //    }
-        //    return all;
-        //}
-
         public void ForceSnapAll()
         {
             foreach (var host in Children.OfType<ISnapHost>())
             {
-                foreach (ISnapInput input in SnapableInputs(host))
+                foreach (IConnectionInput input in SnapableInputs(host))
                 {
                     TryToSnapInputToOutput(lastSnap, host, input);
                 }
 
-                foreach (ISnapOutput output in SnapableOutputs(host))
+                foreach (IConnectionOutput output in SnapableOutputs(host))
                 {
                     TryToSnapOutputToInput(lastSnap, host, output);
                 }
@@ -80,22 +63,22 @@ namespace Denxorz
                     return;
                 }
 
-                foreach (ISnapInput input in host.Inputs)
+                foreach (IConnectionInput input in host.Inputs)
                 {
                     TryToSnapInputToOutput(cursorLocation, host, input);
                 }
 
-                foreach (ISnapOutput output in host.Outputs)
+                foreach (IConnectionOutput output in host.Outputs)
                 {
                     TryToSnapOutputToInput(cursorLocation, host, output);
                 }
             }
         }
 
-        private List<ISnapOutput> SnapableOutputs(ISnapHost host)
+        private List<IConnectionOutput> SnapableOutputs(ISnapHost host)
         {
             // TODO : don't snap to already snapped
-            var ret = new List<ISnapOutput>();
+            var ret = new List<IConnectionOutput>();
             foreach (ISnapHost snapHost in Children.OfType<ISnapHost>().Where(t => t != host))
             {
                 ret.AddRange(snapHost.Outputs);
@@ -103,10 +86,10 @@ namespace Denxorz
             return ret;
         }
 
-        private List<ISnapInput> SnapableInputs(ISnapHost host)
+        private List<IConnectionInput> SnapableInputs(ISnapHost host)
         {
             // TODO : don't snap to already snapped
-            var ret = new List<ISnapInput>();
+            var ret = new List<IConnectionInput>();
             foreach (ISnapHost snapHost in Children.OfType<ISnapHost>().Where(t => t != host))
             {
                 ret.AddRange(snapHost.Inputs);
@@ -114,10 +97,10 @@ namespace Denxorz
             return ret;
         }
 
-        private void TryToSnapInputToOutput(Point cursorLocation, ISnapHost inputHost, ISnapInput input)
+        private void TryToSnapInputToOutput(Point cursorLocation, ISnapHost inputHost, IConnectionInput input)
         {
             var host = inputHost as UIElement;
-            foreach (ISnapOutput output in SnapableOutputs(inputHost))
+            foreach (IConnectionOutput output in SnapableOutputs(inputHost))
             {
                 double xdiff;
                 double ydiff;
@@ -131,16 +114,16 @@ namespace Denxorz
                     lastSnap = cursorLocation;
                     hasSnapped = true;
 
-                    input.SnappedOutput = output;
-                    output.SnappedInput = input;
+                    input.ConnectedOutput = output;
+                    output.ConnectedInput = input;
                 }
             }
         }
 
-        private void TryToSnapOutputToInput(Point cursorLocation, ISnapHost outputHost, ISnapOutput output)
+        private void TryToSnapOutputToInput(Point cursorLocation, ISnapHost outputHost, IConnectionOutput output)
         {
             var host = outputHost as UIElement;
-            foreach (ISnapInput input in SnapableInputs(outputHost))
+            foreach (IConnectionInput input in SnapableInputs(outputHost))
             {
                 double xdiff;
                 double ydiff;
@@ -154,13 +137,13 @@ namespace Denxorz
                     lastSnap = cursorLocation;
                     hasSnapped = true;
 
-                    output.SnappedInput = input;
-                    input.SnappedOutput = output;
+                    output.ConnectedInput = input;
+                    input.ConnectedOutput = output;
                 }
             }
         }
 
-        private bool AreInSnapRange(ISnapOutput output, ISnapInput input, out double xdiff, out double ydiff)
+        private bool AreInSnapRange(IConnectionOutput output, IConnectionInput input, out double xdiff, out double ydiff)
         {
             const double visualDistanceBetweenInAndOut = -13;
 
@@ -184,21 +167,21 @@ namespace Denxorz
                 return;
             }
             var host = ElementBeingDragged as ISnapHost;
-            foreach (ISnapInput input in host.Inputs)
+            foreach (IConnectionInput input in host.Inputs)
             {
-                if (input.SnappedOutput != null)
+                if (input.ConnectedOutput != null)
                 {
-                    input.SnappedOutput.SnappedInput = null;
-                    input.SnappedOutput = null;
+                    input.ConnectedOutput.ConnectedInput = null;
+                    input.ConnectedOutput = null;
                 }
             }
 
-            foreach (ISnapOutput output in host.Outputs)
+            foreach (IConnectionOutput output in host.Outputs)
             {
-                if (output.SnappedInput != null)
+                if (output.ConnectedInput != null)
                 {
-                    output.SnappedInput.SnappedOutput = null;
-                    output.SnappedInput = null;
+                    output.ConnectedInput.ConnectedOutput = null;
+                    output.ConnectedInput = null;
                 }
             }
         }
