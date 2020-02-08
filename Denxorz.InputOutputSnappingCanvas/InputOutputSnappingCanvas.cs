@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using WPF.JoshSmith.Controls;
 
-namespace Denxorz.SnappingCanvas
+namespace Denxorz.InputOutputSnappingCanvas
 {
     public class InputOutputSnappingCanvas : DragCanvas
     {
@@ -35,13 +34,10 @@ namespace Denxorz.SnappingCanvas
         {
             base.OnMouseMove(e);
 
-            // If no element is being dragged, there is nothing to do.
-            if (ElementBeingDragged == null || !IsDragInProgress)
+            if (ElementBeingDragged != null && IsDragInProgress)
             {
-                return;
+                Snap(e.GetPosition(this));
             }
-
-            Snap(e.GetPosition(this));
         }
 
         protected override void OnMouseUp(MouseButtonEventArgs e)
@@ -57,7 +53,8 @@ namespace Denxorz.SnappingCanvas
                 const int unsnapThresholdX = 2;
                 const int unsnapThresholdY = 2;
 
-                if (hasSnapped && (Math.Abs(cursorLocation.X - lastSnap.X) > unsnapThresholdX || Math.Abs(cursorLocation.Y - lastSnap.Y) > unsnapThresholdY))
+                if (hasSnapped && (Math.Abs(cursorLocation.X - lastSnap.X) > unsnapThresholdX 
+                                || Math.Abs(cursorLocation.Y - lastSnap.Y) > unsnapThresholdY))
                 {
                     UnSetSnap();
                     return;
@@ -75,26 +72,19 @@ namespace Denxorz.SnappingCanvas
             }
         }
 
-        private List<IConnectionOutput> SnapableOutputs(ISnapHost host)
+        private IEnumerable<IConnectionOutput> SnapableOutputs(ISnapHost host)
         {
-            // TODO : don't snap to already snapped
-            var ret = new List<IConnectionOutput>();
-            foreach (ISnapHost snapHost in Children.OfType<ISnapHost>().Where(t => t != host))
-            {
-                ret.AddRange(snapHost.Outputs);
-            }
-            return ret;
+            return GetOtherHosts(host).SelectMany(h => h.Outputs);
         }
 
-        private List<IConnectionInput> SnapableInputs(ISnapHost host)
+        private IEnumerable<IConnectionInput> SnapableInputs(ISnapHost host)
         {
-            // TODO : don't snap to already snapped
-            var ret = new List<IConnectionInput>();
-            foreach (ISnapHost snapHost in Children.OfType<ISnapHost>().Where(t => t != host))
-            {
-                ret.AddRange(snapHost.Inputs);
-            }
-            return ret;
+            return GetOtherHosts(host).SelectMany(h => h.Inputs);
+        }
+
+        private IEnumerable<ISnapHost> GetOtherHosts(ISnapHost host)
+        {
+            return Children.OfType<ISnapHost>().Where(t => t != host);
         }
 
         private void TryToSnapInputToOutput(Point cursorLocation, ISnapHost inputHost, IConnectionInput input)
@@ -108,8 +98,8 @@ namespace Denxorz.SnappingCanvas
                 {
                     Point elementBeingDraggedPoint = host.TranslatePoint(new Point(0, 0), this);
 
-                    Canvas.SetLeft(host, elementBeingDraggedPoint.X - xdiff);
-                    Canvas.SetTop(host, elementBeingDraggedPoint.Y - ydiff);
+                    SetLeft(host, elementBeingDraggedPoint.X - xdiff);
+                    SetTop(host, elementBeingDraggedPoint.Y - ydiff);
 
                     lastSnap = cursorLocation;
                     hasSnapped = true;
@@ -131,8 +121,8 @@ namespace Denxorz.SnappingCanvas
                 {
                     Point elementBeingDraggedPoint = host.TranslatePoint(new Point(0, 0), this);
 
-                    Canvas.SetLeft(host, elementBeingDraggedPoint.X + xdiff);
-                    Canvas.SetTop(host, elementBeingDraggedPoint.Y + ydiff);
+                    SetLeft(host, elementBeingDraggedPoint.X + xdiff);
+                    SetTop(host, elementBeingDraggedPoint.Y + ydiff);
 
                     lastSnap = cursorLocation;
                     hasSnapped = true;
@@ -166,6 +156,7 @@ namespace Denxorz.SnappingCanvas
             {
                 return;
             }
+
             var host = ElementBeingDragged as ISnapHost;
             foreach (IConnectionInput input in host.Inputs)
             {
@@ -186,6 +177,4 @@ namespace Denxorz.SnappingCanvas
             }
         }
     }
-
-
 }

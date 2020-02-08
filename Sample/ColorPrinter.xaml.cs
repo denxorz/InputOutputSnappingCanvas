@@ -1,8 +1,7 @@
-﻿using Denxorz.SnappingCanvas;
+﻿using Denxorz.InputOutputSnappingCanvas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Media;
 
 namespace Sample
@@ -11,44 +10,57 @@ namespace Sample
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private string colorName;
-
         public IReadOnlyCollection<IConnectionOutput> Outputs => Array.Empty<IConnectionOutput>();
 
         public IReadOnlyCollection<IConnectionInput> Inputs => new IConnectionInput[] { inControl };
 
-        public string ColorName
-        {
-            get => colorName; private
-            set
-            {
-                colorName = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ColorName)));
-            }
-        }
+        public string ColorName { get; private set; }
+
+        public SolidColorBrush Color { get; private set; }
+
+        private ColorProvider connectedProvider;
 
         public ColorPrinter()
         {
             DataContext = this;
             InitializeComponent();
-            inControl.ConnectionChanged += this.InControl_ConnectionChanged;
-            UpdateColor();
+
+            inControl.ConnectionChanged += OnConnectionChanged;
+
+            UpdateColor(null);
         }
 
-        private void InControl_ConnectionChanged(object sender, EventArgs e)
+        private void UpdateColor(ColorProvider provider)
         {
-            UpdateColor();
+            Color = provider?.Color;
+            ColorName = Color != null ? ColorProvider.GetColorName(Color) : "[???]";
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Color)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ColorName)));
         }
 
-        private void UpdateColor()
+        private void OnConnectionChanged(object sender, EventArgs e)
         {
-            ColorName = inControl.GetObjectFromConnectedOutput() is IColorProvider c ? GetColorName(c.Color) : "[not connected]";
+            if (inControl.GetObjectFromConnectedOutput() is ColorProvider provider)
+            {
+                connectedProvider = provider;
+                connectedProvider.ColorUpdated += this.ConnectedProvider_ColorUpdated;
+            }
+            else
+            {
+                if (connectedProvider != null)
+                {
+                    connectedProvider.ColorUpdated -= ConnectedProvider_ColorUpdated;
+                }
+                connectedProvider = null;
+            }
+
+            UpdateColor(connectedProvider);
         }
 
-        private string GetColorName(SolidColorBrush brush)
+        private void ConnectedProvider_ColorUpdated(object sender, EventArgs e)
         {
-            var results = typeof(Colors).GetProperties().Where(p => (Color)p.GetValue(null, null) == brush.Color).Select(p => p.Name);
-            return results.Any() ? results.First() : String.Empty;
+            UpdateColor(connectedProvider);
         }
     }
 }

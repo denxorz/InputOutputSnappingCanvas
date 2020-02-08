@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Denxorz.SnappingCanvas
+namespace Denxorz.InputOutputSnappingCanvas
 {
     public partial class InputControl : INotifyPropertyChanged, IConnectionInput
     {

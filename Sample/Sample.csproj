@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Denxorz.SnappingCanvas\Denxorz.SnappingCanvas.csproj" />
+    <ProjectReference Include="..\Denxorz.InputOutputSnappingCanvas\Denxorz.InputOutputSnappingCanvas.csproj" />
   </ItemGroup>
 
 </Project>

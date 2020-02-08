@@ -3,31 +3,46 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:denxorz="clr-namespace:Denxorz.SnappingCanvas;assembly=Denxorz.SnappingCanvas"
+    xmlns:denxorz="clr-namespace:Denxorz.InputOutputSnappingCanvas;assembly=Denxorz.InputOutputSnappingCanvas"
     xmlns:local="clr-namespace:Sample"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MainWindow"
+    Title="Denxorz InputOutputSnappingCanvas Sample"
     Width="800"
     Height="450"
     mc:Ignorable="d">
+
     <denxorz:InputOutputSnappingCanvas>
         <local:ColorPrinter
             Canvas.Left="240"
             Canvas.Top="84"
             Canvas.Bottom="50" />
+
+        <local:ColorPrinter
+            Canvas.Left="529"
+            Canvas.Top="285"
+            Canvas.Bottom="50" />
+
         <local:ItemWithColor
-            Canvas.Left="440"
-            Canvas.Top="159"
+            Canvas.Left="429"
+            Canvas.Top="84"
             Canvas.Bottom="30"
             Width="65"
             Height="70"
             Color="Blue" />
+
         <local:ItemWithColor
             Canvas.Left="73"
             Canvas.Top="84"
             Canvas.Bottom="30"
             Width="65"
             Height="70"
-            Color="Red" />
+            Color="Green" />
+
+        <local:DarkLight
+            Canvas.Left="260"
+            Canvas.Top="205"
+            Canvas.Bottom="30"
+            Width="100"
+            Height="170" />
     </denxorz:InputOutputSnappingCanvas>
 </Window>

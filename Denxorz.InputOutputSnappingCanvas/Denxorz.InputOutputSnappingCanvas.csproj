@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>A WPF Canvas which allows the easily connecting elements. Each element on the canvas can have zero or multiple in and outputs. These inputs and outputs will snap together.
+</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>Denxorz</Authors>
+    <PackageProjectUrl>https://github.com/denxorz/InputOutputSnappingCanvas</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/denxorz/InputOutputSnappingCanvas/raw/master/icons8-connected-50.png</PackageIconUrl>
+    <PackageTags>wpf drag canvas snap input output connect</PackageTags>
+    <RepositoryUrl>https://github.com/denxorz/InputOutputSnappingCanvas</RepositoryUrl>
+    <Product>Denxorz.InputOutputSnappingCanvas</Product>
+    <PackageId>Denxorz.InputOutputSnappingCanvas</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="WPF.JoshSmith.Controls.DragCanvas" Version="1.1.0" />
+  </ItemGroup>
+
+</Project>

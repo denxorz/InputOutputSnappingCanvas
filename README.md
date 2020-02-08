@@ -7,9 +7,8 @@ A Canvas which allows the easily connecting elements. Each element on the canvas
 
 ## Examples
 
-```C#
-see Sample
-```
+![Denxorz.InputOutputSnappingCanvas sample gif](https://github.com/denxorz/InputOutputSnappingCanvas/raw/master/sample.gif "Denxorz.InputOutputSnappingCanvas sample gif")
+
 
 ## Tools and Products Used
 
@@ -18,6 +17,7 @@ see Sample
 * [Icons8](https://icons8.com/)
 * [NuGet](https://www.nuget.org/)
 * [GitHub](https://github.com/)
+* [ScreenToGif](https://www.screentogif.com/)
 
 
 ## Versions & Release Notes

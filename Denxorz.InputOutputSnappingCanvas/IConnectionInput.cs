@@ -1,4 +1,4 @@
-﻿namespace Denxorz.SnappingCanvas
+﻿namespace Denxorz.InputOutputSnappingCanvas
 {
     public interface IConnectionInput
     {
