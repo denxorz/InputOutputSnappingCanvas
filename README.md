@@ -3,9 +3,9 @@
 [![Build status](https://github.com/denxorz/InputOutputSnappingCanvas/workflows/.NET%20Core/badge.svg)](https://github.com/denxorz/InputOutputSnappingCanvas/actions) [![NuGet](https://buildstats.info/nuget/Denxorz.InputOutputSnappingCanvas)](https://www.nuget.org/packages/Denxorz.InputOutputSnappingCanvas/) [![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/denxorz/InputOutputSnappingCanvas/blob/master/LICENSE.md)
 
 ## What does it do?
-A Canvas which allows the easily connecting elements. Each element on the canvas can have zero or multiple in and outputs. These inputs and outputs will snap together.
+A WPF Canvas which allows the easily connecting elements. Each element on the canvas can have zero or multiple in and outputs. These inputs and outputs will snap together.
 
-## Examples
+## Example
 
 ![Denxorz.InputOutputSnappingCanvas sample gif](https://github.com/denxorz/InputOutputSnappingCanvas/raw/master/sample.gif "Denxorz.InputOutputSnappingCanvas sample gif")
 

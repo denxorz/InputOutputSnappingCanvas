@@ -19,5 +19,5 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: NugetPackage
-        path: Denxorz.SnappingCanvas\bin\Release\
+        path: Denxorz.InputOutputSnappingCanvas\bin\Release\
 
