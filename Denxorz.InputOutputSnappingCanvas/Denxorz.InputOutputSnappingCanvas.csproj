@@ -4,8 +4,7 @@
     <TargetFrameworks>netcoreapp3.0;net45;net472</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>A WPF Canvas which allows the easily connecting elements. Each element on the canvas can have zero or multiple in and outputs. These inputs and outputs will snap together.
-</Description>
+    <Description>A WPF Canvas which allows easy connecting elements. Each element on the canvas can have zero or multiple in and outputs. These inputs and outputs will snap together.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Denxorz</Authors>
     <PackageProjectUrl>https://github.com/denxorz/InputOutputSnappingCanvas</PackageProjectUrl>
@@ -14,6 +13,8 @@
     <RepositoryUrl>https://github.com/denxorz/InputOutputSnappingCanvas</RepositoryUrl>
     <Product>Denxorz.InputOutputSnappingCanvas</Product>
     <PackageId>Denxorz.InputOutputSnappingCanvas</PackageId>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +22,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="WPF.JoshSmith.Controls.DragCanvas" Version="1.1.0" />
+    <PackageReference Include="WPF.JoshSmith.Controls.DragCanvas" Version="2.0.0" />
   </ItemGroup>
 
 </Project>
