@@ -97,21 +97,7 @@ namespace Denxorz.InputOutputSnappingCanvas
             var host = inputHost as UIElement;
             foreach (IConnectionOutput output in SnapableOutputs(inputHost))
             {
-                double xdiff;
-                double ydiff;
-                if (AreInSnapRange(output, input, out xdiff, out ydiff))
-                {
-                    Point elementBeingDraggedPoint = host.TranslatePoint(new Point(0, 0), this);
-
-                    SetLeft(host, elementBeingDraggedPoint.X - xdiff);
-                    SetTop(host, elementBeingDraggedPoint.Y - ydiff);
-
-                    lastSnap = cursorLocation;
-                    hasSnapped = true;
-
-                    input.ConnectedOutput = output;
-                    output.ConnectedInput = input;
-                }
+                TryToSnap(host, cursorLocation, input, output);
             }
         }
 
@@ -120,22 +106,30 @@ namespace Denxorz.InputOutputSnappingCanvas
             var host = outputHost as UIElement;
             foreach (IConnectionInput input in SnapableInputs(outputHost))
             {
-                double xdiff;
-                double ydiff;
-                if (AreInSnapRange(output, input, out xdiff, out ydiff))
-                {
-                    Point elementBeingDraggedPoint = host.TranslatePoint(new Point(0, 0), this);
-
-                    SetLeft(host, elementBeingDraggedPoint.X + xdiff);
-                    SetTop(host, elementBeingDraggedPoint.Y + ydiff);
-
-                    lastSnap = cursorLocation;
-                    hasSnapped = true;
-
-                    output.ConnectedInput = input;
-                    input.ConnectedOutput = output;
-                }
+                TryToSnap(host, cursorLocation, input, output);
             }
+        }
+
+        private void TryToSnap(UIElement host, Point cursorLocation, IConnectionInput input, IConnectionOutput output)
+        {
+            if (AreInSnapRange(output, input, out double xdiff, out double ydiff))
+            {
+                Snap(host, cursorLocation, input, output, xdiff, ydiff);
+            }
+        }
+
+        private void Snap(UIElement host, Point cursorLocation, IConnectionInput input, IConnectionOutput output, double xdiff, double ydiff)
+        {
+            Point elementBeingDraggedPoint = host.TranslatePoint(new Point(0, 0), this);
+
+            SetLeft(host, elementBeingDraggedPoint.X - xdiff);
+            SetTop(host, elementBeingDraggedPoint.Y - ydiff);
+
+            lastSnap = cursorLocation;
+            hasSnapped = true;
+
+            input.ConnectedOutput = output;
+            output.ConnectedInput = input;
         }
 
         private bool AreInSnapRange(IConnectionOutput output, IConnectionInput input, out double xdiff, out double ydiff)
