@@ -5,5 +5,7 @@
         IConnectionOutput ConnectedOutput { get; set; }
 
         object GetObjectFromConnectedOutput();
+
+        bool AllowsSnapTo(IConnectionOutput output);
     }
 }

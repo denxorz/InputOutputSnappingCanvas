@@ -6,7 +6,7 @@ namespace Denxorz.InputOutputSnappingCanvas
     public partial class OutputControl : INotifyPropertyChanged, IConnectionOutput
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public event EventHandler ConnectionChanged;
+        public event EventHandler<OutputConnectionChangedEventArgs> ConnectionChanged;
 
         private IConnectionInput snappedInput;
 
@@ -15,14 +15,15 @@ namespace Denxorz.InputOutputSnappingCanvas
             get { return snappedInput; }
             set
             {
+                var oldInput = snappedInput;
                 snappedInput = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConnectedInput)));
-                ConnectionChanged?.Invoke(this, EventArgs.Empty);
+                ConnectionChanged?.Invoke(this, new OutputConnectionChangedEventArgs(this, oldInput, snappedInput));
             }
         }
 
         public object ObjectToOutput { get; set; }
-        
+
         public OutputControl()
         {
             InitializeComponent();

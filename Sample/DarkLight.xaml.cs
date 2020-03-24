@@ -23,7 +23,13 @@ namespace Sample
             lightOutControl.ObjectToOutput = lightOutputProvider;
             darkOutControl.ObjectToOutput = darkOutputProvider;
 
+            inControl.ConnectionChanging += OnConnectionChanging;
             inControl.ConnectionChanged += OnConnectionChanged;
+        }
+
+        private void OnConnectionChanging(object sender, InputConnectionChangingEventArgs e)
+        {
+            e.IsCancelled = !(e.NewOutput.ObjectToOutput is ColorProvider);
         }
 
         private void OnConnectionChanged(object sender, EventArgs e)

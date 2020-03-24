@@ -26,6 +26,7 @@ namespace Sample
             InitializeComponent();
 
             inControl.ConnectionChanged += OnConnectionChanged;
+            inControl.ConnectionChanging += OnConnectionChanging;
 
             UpdateColor(null);
         }
@@ -37,6 +38,11 @@ namespace Sample
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Color)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ColorName)));
+        }
+
+        private void OnConnectionChanging(object sender, InputConnectionChangingEventArgs e)
+        {
+            e.IsCancelled = !(e.NewOutput.ObjectToOutput is ColorProvider);
         }
 
         private void OnConnectionChanged(object sender, EventArgs e)

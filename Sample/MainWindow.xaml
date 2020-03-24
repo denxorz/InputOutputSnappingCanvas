@@ -12,37 +12,17 @@
     mc:Ignorable="d">
 
     <denxorz:InputOutputSnappingCanvas>
-        <local:ColorPrinter
-            Canvas.Left="240"
-            Canvas.Top="84"
-            Canvas.Bottom="50" />
-
-        <local:ColorPrinter
-            Canvas.Left="529"
-            Canvas.Top="285"
-            Canvas.Bottom="50" />
-
+        <local:ColorPrinter Canvas.Left="240" Canvas.Top="84" />
+        <local:ColorPrinter Canvas.Left="529" Canvas.Top="285" />
+        <local:DarkLight Canvas.Left="260" Canvas.Top="205" />
+        <local:AnimalPrinter Canvas.Left="621" Canvas.Top="74" />
         <local:ItemWithColor
             Canvas.Left="429"
             Canvas.Top="84"
-            Canvas.Bottom="30"
-            Width="65"
-            Height="70"
             Color="Blue" />
-
         <local:ItemWithColor
             Canvas.Left="73"
             Canvas.Top="84"
-            Canvas.Bottom="30"
-            Width="65"
-            Height="70"
             Color="Green" />
-
-        <local:DarkLight
-            Canvas.Left="260"
-            Canvas.Top="205"
-            Canvas.Bottom="30"
-            Width="100"
-            Height="170" />
     </denxorz:InputOutputSnappingCanvas>
 </Window>

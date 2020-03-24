@@ -53,7 +53,7 @@ namespace Denxorz.InputOutputSnappingCanvas
                 const int unsnapThresholdX = 2;
                 const int unsnapThresholdY = 2;
 
-                if (hasSnapped && (Math.Abs(cursorLocation.X - lastSnap.X) > unsnapThresholdX 
+                if (hasSnapped && (Math.Abs(cursorLocation.X - lastSnap.X) > unsnapThresholdX
                                 || Math.Abs(cursorLocation.Y - lastSnap.Y) > unsnapThresholdY))
                 {
                     UnSetSnap();
@@ -114,7 +114,10 @@ namespace Denxorz.InputOutputSnappingCanvas
         {
             if (AreInSnapRange(output, input, out double xdiff, out double ydiff))
             {
-                Snap(host, cursorLocation, input, output, xdiff, ydiff);
+                if (input.AllowsSnapTo(output))
+                {
+                    Snap(host, cursorLocation, input, output, xdiff, ydiff);
+                }
             }
         }
 
