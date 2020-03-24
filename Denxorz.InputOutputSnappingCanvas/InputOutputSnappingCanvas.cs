@@ -16,7 +16,7 @@ namespace Denxorz.InputOutputSnappingCanvas
 
         public void ForceSnapAll()
         {
-            foreach (var host in Children.OfType<ISnapHost>())
+            foreach (var host in GetAllHosts())
             {
                 foreach (IConnectionInput input in SnapableInputs(host))
                 {
@@ -84,7 +84,12 @@ namespace Denxorz.InputOutputSnappingCanvas
 
         private IEnumerable<ISnapHost> GetOtherHosts(ISnapHost host)
         {
-            return Children.OfType<ISnapHost>().Where(t => t != host);
+            return GetAllHosts().Where(t => t != host);
+        }
+
+        private IReadOnlyCollection<ISnapHost> GetAllHosts()
+        {
+            return Children.OfType<ISnapHost>().ToArray();
         }
 
         private void TryToSnapInputToOutput(Point cursorLocation, ISnapHost inputHost, IConnectionInput input)
