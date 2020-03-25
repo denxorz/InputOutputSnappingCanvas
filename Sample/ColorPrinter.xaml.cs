@@ -50,7 +50,7 @@ namespace Sample
             if (inControl.GetObjectFromConnectedOutput() is ColorProvider provider)
             {
                 connectedProvider = provider;
-                connectedProvider.ColorUpdated += this.ConnectedProvider_ColorUpdated;
+                connectedProvider.ColorUpdated += ConnectedProvider_ColorUpdated;
             }
             else
             {

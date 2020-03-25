@@ -5,8 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:denxorz="clr-namespace:Denxorz.InputOutputSnappingCanvas;assembly=Denxorz.InputOutputSnappingCanvas"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Height="170"
     Width="120"
+    Height="170"
     Background="#0C000000"
     mc:Ignorable="d">
 

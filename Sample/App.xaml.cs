@@ -1,8 +1,4 @@
-﻿using System.Windows;
-
-namespace Sample
+﻿namespace Sample
 {
-    public partial class App : Application
-    {
-    }
+    public partial class App { }
 }

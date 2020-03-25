@@ -13,7 +13,7 @@ namespace Sample
                 nameof(Color),
                 typeof(SolidColorBrush),
                 typeof(ItemWithColor),
-                new FrameworkPropertyMetadata(Brushes.Aqua, new PropertyChangedCallback(OnColorPropertyChanged)));
+                new FrameworkPropertyMetadata(Brushes.Aqua, OnColorPropertyChanged));
 
         public SolidColorBrush Color
         {
@@ -43,7 +43,7 @@ namespace Sample
 
         private static void OnColorPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as ItemWithColor).UpdateColor();
+            ((ItemWithColor)d).UpdateColor();
         }
     }
 }
