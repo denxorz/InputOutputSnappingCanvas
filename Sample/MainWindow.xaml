@@ -9,6 +9,7 @@
     Title="Denxorz InputOutputSnappingCanvas Sample"
     Width="800"
     Height="450"
+    Icon="icons8-connected-50.png"
     mc:Ignorable="d">
 
     <denxorz:InputOutputSnappingCanvas>

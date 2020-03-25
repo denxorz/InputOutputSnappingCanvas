@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Denxorz.InputOutputSnappingCanvas\Denxorz.InputOutputSnappingCanvas.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Resource Include="..\icons8-connected-50.png" Link="icons8-connected-50.png" />
+  </ItemGroup>
+
 </Project>
