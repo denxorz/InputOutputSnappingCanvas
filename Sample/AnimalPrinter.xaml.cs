@@ -15,6 +15,9 @@ namespace Sample
 
         public string Name { get; private set; } = "[???]";
 
+        public double Top { get; set; }
+        public double Left { get; set; }
+
         public AnimalPrinter()
         {
             DataContext = this;

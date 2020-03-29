@@ -13,8 +13,12 @@ namespace Sample
 
         public IReadOnlyCollection<IConnectionInput> Inputs => new IConnectionInput[] { inControl };
 
+        public double Top { get; set; }
+        public double Left { get; set; }
+
         public DarkLight()
         {
+            DataContext = this;
             InitializeComponent();
 
             lightOutputProvider = new ColorProvider();

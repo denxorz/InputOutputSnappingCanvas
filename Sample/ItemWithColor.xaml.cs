@@ -25,6 +25,9 @@ namespace Sample
 
         public IReadOnlyCollection<IConnectionInput> Inputs => Array.Empty<IConnectionInput>();
 
+        public double Top { get; set; }
+        public double Left { get; set; }
+
         private readonly ColorProvider colorProvider;
 
         public ItemWithColor()

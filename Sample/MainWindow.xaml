@@ -6,24 +6,24 @@
     xmlns:denxorz="clr-namespace:Denxorz.InputOutputSnappingCanvas;assembly=Denxorz.InputOutputSnappingCanvas"
     xmlns:local="clr-namespace:Sample"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="ThisControl"
     Title="Denxorz InputOutputSnappingCanvas Sample"
     Width="800"
     Height="450"
     Icon="icons8-connected-50.png"
     mc:Ignorable="d">
 
-    <denxorz:InputOutputSnappingCanvas>
-        <local:ColorPrinter Canvas.Left="240" Canvas.Top="84" />
-        <local:ColorPrinter Canvas.Left="529" Canvas.Top="285" />
-        <local:DarkLight Canvas.Left="260" Canvas.Top="205" />
-        <local:AnimalPrinter Canvas.Left="621" Canvas.Top="74" />
-        <local:ItemWithColor
-            Canvas.Left="429"
-            Canvas.Top="84"
-            Color="Blue" />
-        <local:ItemWithColor
-            Canvas.Left="73"
-            Canvas.Top="84"
-            Color="Green" />
-    </denxorz:InputOutputSnappingCanvas>
+    <ItemsControl ItemsSource="{Binding Items, ElementName=ThisControl}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <denxorz:InputOutputSnappingCanvas />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemContainerStyle>
+            <Style TargetType="UserControl">
+                <Setter Property="Canvas.Left" Value="{Binding Left}" />
+                <Setter Property="Canvas.Top" Value="{Binding Top}" />
+            </Style>
+        </ItemsControl.ItemContainerStyle>
+    </ItemsControl>
 </Window>

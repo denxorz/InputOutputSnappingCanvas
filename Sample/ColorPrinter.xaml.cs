@@ -18,6 +18,9 @@ namespace Sample
 
         public SolidColorBrush Color { get; private set; }
 
+        public double Top { get; set; }
+        public double Left { get; set; }
+
         private ColorProvider connectedProvider;
 
         public ColorPrinter()
