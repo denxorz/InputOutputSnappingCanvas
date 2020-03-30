@@ -6,5 +6,6 @@ namespace Denxorz.InputOutputSnappingCanvas
     {
         IReadOnlyCollection<IConnectionOutput> Outputs { get; }
         IReadOnlyCollection<IConnectionInput> Inputs { get; }
+        object DataContext { get; }
     }
 }

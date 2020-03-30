@@ -184,6 +184,56 @@ namespace Denxorz.InputOutputSnappingCanvas
             }
         }
 
+        public List<List<object>> GetGroups()
+        {
+            var hosts = Children.OfType<ISnapHost>().ToList();
+            var startList = hosts.ToList();
+            List<List<object>> groups = new List<List<object>>();
+
+            while (startList.Any())
+            {
+                var startItem = startList.First();
+
+                var linkedItems = GetLinkedHosts(hosts, startItem, null).Distinct().ToList();
+                foreach (var host in linkedItems)
+                {
+                    startList.Remove(host);
+                }
+
+                if (linkedItems.Count > 1)
+                {
+                    groups.Add(new List<object>(linkedItems.Select(t => t.DataContext)));
+                }
+            }
+
+            return groups;
+        }
+
+        private List<ISnapHost> GetLinkedHosts(List<ISnapHost> hosts, ISnapHost startItem, ISnapHost skip)
+        {
+            var linkedItems = new List<ISnapHost> { startItem };
+
+            foreach (var output in startItem.Outputs.Where(o => o.ConnectedInput != null))
+            {
+                var item = hosts.First(s => s.Inputs.Contains(output.ConnectedInput));
+                if (item != skip)
+                {
+                    linkedItems.AddRange(GetLinkedHosts(hosts, item, startItem));
+                }
+            }
+
+            foreach (var input in startItem.Inputs.Where(o => o.ConnectedOutput != null))
+            {
+                var item = hosts.First(s => s.Outputs.Contains(input.ConnectedOutput));
+                if (item != skip)
+                {
+                    linkedItems.AddRange(GetLinkedHosts(hosts, item, startItem));
+                }
+            }
+
+            return linkedItems;
+        }
+
         private enum SnapDirection { ToInput, ToOutput };
     }
 }
