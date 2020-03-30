@@ -4,14 +4,14 @@ namespace Denxorz.InputOutputSnappingCanvas
 {
     public class OutputConnectionChangedEventArgs : EventArgs
     {
-        public IConnectionOutput Output { get; }
-        public IConnectionInput OldInput { get; }
-        public IConnectionInput NewInput { get; }
+        public object Output { get; }
+        public object OldInput { get; }
+        public object NewInput { get; }
 
         public OutputConnectionChangedEventArgs(
-            IConnectionOutput output,
-            IConnectionInput oldInput,
-            IConnectionInput newInput)
+            object output,
+            object oldInput,
+            object newInput)
         {
             Output = output;
             OldInput = oldInput;

@@ -4,9 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:denxorz="clr-namespace:Denxorz.InputOutputSnappingCanvas;assembly=Denxorz.InputOutputSnappingCanvas"
+    xmlns:local="clr-namespace:Sample"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="120"
     Height="170"
+    d:DataContext="{d:DesignInstance local:DarkLightViewModel,
+                                     IsDesignTimeCreatable=True}"
     Background="#0C000000"
     mc:Ignorable="d">
 

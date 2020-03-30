@@ -5,14 +5,14 @@ namespace Denxorz.InputOutputSnappingCanvas
     public class InputConnectionChangingEventArgs : EventArgs
     {
         public bool IsCancelled { get; set; }
-        public IConnectionInput Input { get; }
-        public IConnectionOutput OldOutput { get; }
-        public IConnectionOutput NewOutput { get; }
+        public object Input { get; }
+        public object OldOutput { get; }
+        public object NewOutput { get; }
 
         public InputConnectionChangingEventArgs(
-            IConnectionInput intput,
-            IConnectionOutput oldOutput,
-            IConnectionOutput newOutput)
+            object intput,
+            object oldOutput,
+            object newOutput)
         {
             Input = intput;
             OldOutput = oldOutput;

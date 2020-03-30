@@ -9,8 +9,10 @@ namespace Denxorz.InputOutputSnappingCanvas
 
         IConnectionOutput ConnectedOutput { get; set; }
 
-        object GetObjectFromConnectedOutput();
+        object GetContextFromConnectedOutput();
 
         bool AllowsSnapTo(IConnectionOutput output);
+
+        object Context { get; set; }
     }
 }

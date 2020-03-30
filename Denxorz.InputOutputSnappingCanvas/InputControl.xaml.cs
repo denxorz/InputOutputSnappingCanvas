@@ -19,23 +19,25 @@ namespace Denxorz.InputOutputSnappingCanvas
                 var oldOutput = snappedOutput;
                 snappedOutput = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConnectedOutput)));
-                ConnectionChanged?.Invoke(this, new InputConnectionChangedEventArgs(this, oldOutput, snappedOutput));
+                ConnectionChanged?.Invoke(this, new InputConnectionChangedEventArgs(Context, oldOutput?.Context, snappedOutput?.Context));
             } 
         }
+
+        public object Context { get; set; }
 
         public InputControl()
         {
             InitializeComponent();
         }
 
-        public object GetObjectFromConnectedOutput()
+        public object GetContextFromConnectedOutput()
         {
-            return ConnectedOutput?.ObjectToOutput;
+            return ConnectedOutput?.Context;
         }
 
         public bool AllowsSnapTo(IConnectionOutput output)
         {
-            var eventArgs = new InputConnectionChangingEventArgs(this, snappedOutput, output);
+            var eventArgs = new InputConnectionChangingEventArgs(Context, snappedOutput?.Context, output?.Context);
             ConnectionChanging?.Invoke(this, eventArgs);
             return !eventArgs.IsCancelled;
         }

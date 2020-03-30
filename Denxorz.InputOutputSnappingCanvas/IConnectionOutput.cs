@@ -8,6 +8,6 @@ namespace Denxorz.InputOutputSnappingCanvas
         
         IConnectionInput ConnectedInput { get; set; }
 
-        object ObjectToOutput { get; }
+        object Context { get; set; }
     }
 }
