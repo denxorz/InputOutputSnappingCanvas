@@ -24,12 +24,16 @@ A WPF Canvas which allows easy connecting elements. Each element on the canvas c
 
 ## Versions & Release Notes
 
+version 1.3: 
+ * Fix bug that caused imprecision while snapping inputs
+ * Add a method to retrieve groups
+
 version 1.2: 
- * Connections can now be Cancelled.
+ * Connections can now be Cancelled
  * Expose Input and Ouput changed events
 
 version 1.1: 
- * Update DragCanvas so that Buttons/Comboboxes/etc can be used on a draggable control.
+ * Update DragCanvas so that Buttons/Comboboxes/etc can be used on a draggable control
 
 version 1.0: 
  * First version
