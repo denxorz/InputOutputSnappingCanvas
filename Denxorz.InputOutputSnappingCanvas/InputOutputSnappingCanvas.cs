@@ -97,7 +97,7 @@ namespace Denxorz.InputOutputSnappingCanvas
             var host = inputHost as UIElement;
             foreach (IConnectionOutput output in SnapableOutputs(inputHost))
             {
-                TryToSnap(host, cursorLocation, input, output);
+                TryToSnap(host, cursorLocation, input, output, SnapDirection.ToOutput);
             }
         }
 
@@ -106,16 +106,21 @@ namespace Denxorz.InputOutputSnappingCanvas
             var host = outputHost as UIElement;
             foreach (IConnectionInput input in SnapableInputs(outputHost))
             {
-                TryToSnap(host, cursorLocation, input, output);
+                TryToSnap(host, cursorLocation, input, output, SnapDirection.ToInput);
             }
         }
 
-        private void TryToSnap(UIElement host, Point cursorLocation, IConnectionInput input, IConnectionOutput output)
+        private void TryToSnap(UIElement host, Point cursorLocation, IConnectionInput input, IConnectionOutput output, SnapDirection direction)
         {
             if (AreInSnapRange(output, input, out double xdiff, out double ydiff))
             {
                 if (input.AllowsSnapTo(output))
                 {
+                    if (direction == SnapDirection.ToOutput)
+                    {
+                        xdiff *= -1;
+                        ydiff *= -1;
+                    }
                     Snap(host, cursorLocation, input, output, xdiff, ydiff);
                 }
             }
@@ -125,8 +130,8 @@ namespace Denxorz.InputOutputSnappingCanvas
         {
             Point elementBeingDraggedPoint = host.TranslatePoint(new Point(0, 0), this);
 
-            SetLeft(host, elementBeingDraggedPoint.X - xdiff);
-            SetTop(host, elementBeingDraggedPoint.Y - ydiff);
+            SetLeft(host, elementBeingDraggedPoint.X + xdiff);
+            SetTop(host, elementBeingDraggedPoint.Y + ydiff);
 
             lastSnap = cursorLocation;
             hasSnapped = true;
@@ -178,5 +183,7 @@ namespace Denxorz.InputOutputSnappingCanvas
                 }
             }
         }
+
+        private enum SnapDirection { ToInput, ToOutput };
     }
 }
