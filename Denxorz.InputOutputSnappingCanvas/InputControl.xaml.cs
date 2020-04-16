@@ -16,10 +16,13 @@ namespace Denxorz.InputOutputSnappingCanvas
             get { return snappedOutput; } 
             set 
             {
-                var oldOutput = snappedOutput;
-                snappedOutput = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConnectedOutput)));
-                ConnectionChanged?.Invoke(this, new InputConnectionChangedEventArgs(Context, oldOutput?.Context, snappedOutput?.Context));
+                if (snappedOutput != value)
+                {
+                    var oldOutput = snappedOutput;
+                    snappedOutput = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConnectedOutput)));
+                    ConnectionChanged?.Invoke(this, new InputConnectionChangedEventArgs(Context, oldOutput?.Context, snappedOutput?.Context));
+                }
             } 
         }
 
