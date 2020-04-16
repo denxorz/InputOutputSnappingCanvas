@@ -9,10 +9,13 @@ namespace Denxorz.InputOutputSnappingCanvas
 {
     public class InputOutputSnappingCanvas : DragCanvas
     {
-        private const int snapThresholdX = 5;
-        private const int snapThresholdY = 5;
         private bool hasSnapped = false;
         private Point lastSnap = new Point(0, 0);
+
+        public int SnapThresholdX { get; set; } = 5;
+        public int SnapThresholdY { get; set; } = 5;
+        public int UnsnapThresholdX { get; set; } = 2;
+        public int UnsnapThresholdY { get; set; } = 2;
 
         public void ForceSnapAll()
         {
@@ -65,11 +68,9 @@ namespace Denxorz.InputOutputSnappingCanvas
         {
             if (ElementBeingDragged is ISnapHost host)
             {
-                const int unsnapThresholdX = 2;
-                const int unsnapThresholdY = 2;
-
-                if (hasSnapped && (Math.Abs(cursorLocation.X - lastSnap.X) > unsnapThresholdX
-                                || Math.Abs(cursorLocation.Y - lastSnap.Y) > unsnapThresholdY))
+                if (hasSnapped
+                    && (Math.Abs(cursorLocation.X - lastSnap.X) > UnsnapThresholdX
+                      || Math.Abs(cursorLocation.Y - lastSnap.Y) > UnsnapThresholdY))
                 {
                     UnSetSnap();
                     return;
@@ -177,8 +178,8 @@ namespace Denxorz.InputOutputSnappingCanvas
             xdiff = inputPoint.X - outputPoint.X + visualDistanceBetweenInAndOut;
             ydiff = inputPoint.Y - outputPoint.Y;
 
-            return Math.Abs(xdiff) < snapThresholdX
-                && Math.Abs(ydiff) < snapThresholdY;
+            return Math.Abs(xdiff) < SnapThresholdX
+                && Math.Abs(ydiff) < SnapThresholdY;
         }
 
         private void UnSetSnap()
