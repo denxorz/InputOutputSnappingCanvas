@@ -24,6 +24,11 @@ A WPF Canvas which allows easy connecting elements. Each element on the canvas c
 
 ## Versions & Release Notes
 
+version 1.4: 
+ * Expose snapping thresholds
+ * Add a method to create links whithout snapping (so you can have groups after loading)
+ * Fix bug where changed events are raised when no change occured
+
 version 1.3: 
  * Fix bug that caused imprecision while snapping inputs
  * Add a method to retrieve groups

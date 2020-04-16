@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/denxorz/InputOutputSnappingCanvas</RepositoryUrl>
     <Product>Denxorz.InputOutputSnappingCanvas</Product>
     <PackageId>Denxorz.InputOutputSnappingCanvas</PackageId>
-    <Version>1.3.0</Version>
+    <Version>1.4.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
