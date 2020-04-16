@@ -30,6 +30,21 @@ namespace Denxorz.InputOutputSnappingCanvas
             }
         }
 
+        public void ForceLinkAll()
+        {
+            var allHosts = GetAllHosts();
+            var allInputs = allHosts.SelectMany(h => h.Inputs).ToArray();
+            var allOutputs = allHosts.SelectMany(h => h.Outputs).ToArray();
+
+            foreach (IConnectionInput input in allInputs)
+            {
+                foreach (IConnectionOutput output in allOutputs)
+                {
+                    TryToLink(input, output);
+                }
+            }
+        }
+
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
@@ -122,6 +137,18 @@ namespace Denxorz.InputOutputSnappingCanvas
                         ydiff *= -1;
                     }
                     Snap(host, cursorLocation, input, output, xdiff, ydiff);
+                }
+            }
+        }
+
+        private void TryToLink(IConnectionInput input, IConnectionOutput output)
+        {
+            if (AreInSnapRange(output, input, out _, out _))
+            {
+                if (input.AllowsSnapTo(output))
+                {
+                    input.ConnectedOutput = output;
+                    output.ConnectedInput = input;
                 }
             }
         }
