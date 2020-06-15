@@ -19,6 +19,8 @@ namespace Denxorz.InputOutputSnappingCanvas
 
         public void ForceSnapAll()
         {
+            Application.Current.Dispatcher.VerifyAccess();
+
             foreach (var host in GetAllHosts())
             {
                 foreach (IConnectionInput input in SnapableInputs(host))
@@ -35,6 +37,8 @@ namespace Denxorz.InputOutputSnappingCanvas
 
         public void ForceLinkAll()
         {
+            Application.Current.Dispatcher.VerifyAccess();
+
             var allHosts = GetAllHosts();
             var allInputs = allHosts.SelectMany(h => h.Inputs).ToArray();
             var allOutputs = allHosts.SelectMany(h => h.Outputs).ToArray();
@@ -214,6 +218,8 @@ namespace Denxorz.InputOutputSnappingCanvas
 
         public List<List<object>> GetGroups()
         {
+            Application.Current.Dispatcher.VerifyAccess();
+
             var hosts = Children.OfType<ISnapHost>().ToList();
             var startList = hosts.ToList();
             List<List<object>> groups = new List<List<object>>();
