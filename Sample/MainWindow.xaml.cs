@@ -24,19 +24,21 @@ namespace Sample
             Loaded += (s, e) => FindVisualChild<InputOutputSnappingCanvas>(this).ForceLinkAll();
         }
 
-        public TChildItem FindVisualChild<TChildItem>(DependencyObject obj) where TChildItem : DependencyObject
+        public T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
         {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
             {
                 var child = VisualTreeHelper.GetChild(obj, i);
+                if (child is T item)
+                {
+                    return item;
+                }
 
-                if (child != null && child is TChildItem)
-                    return (TChildItem)child;
-
-                var childOfChild = FindVisualChild<TChildItem>(child);
-
+                var childOfChild = FindVisualChild<T>(child);
                 if (childOfChild != null)
+                {
                     return childOfChild;
+                }
             }
 
             return null;
