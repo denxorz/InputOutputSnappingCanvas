@@ -20,9 +20,13 @@ A WPF Canvas which allows easy connecting elements. Each element on the canvas c
 * [NuGet](https://www.nuget.org/)
 * [GitHub](https://github.com/)
 * [ScreenToGif](https://www.screentogif.com/)
+* [AppVeyor](https://www.appveyor.com/)
 
 
 ## Versions & Release Notes
+
+version 1.5:
+ * Fixes #2, "removed links" are no longer used to build groups (caused InvalidOperationException)
 
 version 1.4: 
  * Expose snapping thresholds
