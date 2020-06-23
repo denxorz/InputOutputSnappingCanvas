@@ -50,6 +50,8 @@ namespace Denxorz.InputOutputSnappingCanvas
                     TryToLink(input, output);
                 }
             }
+
+            RemoveDeadLinks(allInputs, allOutputs);
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -220,6 +222,8 @@ namespace Denxorz.InputOutputSnappingCanvas
         {
             Application.Current.Dispatcher.VerifyAccess();
 
+            ForceLinkAll();
+
             var hosts = Children.OfType<ISnapHost>().ToList();
             var startList = hosts.ToList();
             List<List<object>> groups = new List<List<object>>();
@@ -266,6 +270,29 @@ namespace Denxorz.InputOutputSnappingCanvas
             }
 
             return linkedItems;
+        }
+
+        private void RemoveDeadLinks(IReadOnlyCollection<IConnectionInput> allInputs, IReadOnlyCollection<IConnectionOutput> allOutputs)
+        {
+            var deadInputLinks = allInputs
+                .Where(input => input.ConnectedOutput != null && !allOutputs.Contains(input.ConnectedOutput))
+                .ToList();
+
+            foreach (var dead in deadInputLinks)
+            {
+                dead.ConnectedOutput.ConnectedInput = null;
+                dead.ConnectedOutput = null;
+            }
+
+            var deadOutputLinks = allOutputs
+                .Where(output => output.ConnectedInput != null && !allInputs.Contains(output.ConnectedInput))
+                .ToList();
+
+            foreach (var dead in deadOutputLinks)
+            {
+                dead.ConnectedInput.ConnectedOutput = null;
+                dead.ConnectedInput = null;
+            }
         }
 
         private enum SnapDirection { ToInput, ToOutput };
