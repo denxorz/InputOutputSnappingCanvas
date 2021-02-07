@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFrameworks>net452;net472;netcoreapp3.1;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net452;net472;netcoreapp3.1;net5.0-windows7.0</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <LangVersion>Latest</LangVersion>
     
