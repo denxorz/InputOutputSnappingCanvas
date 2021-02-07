@@ -19,8 +19,8 @@ namespace Denxorz.InputOutputSnappingCanvas
                 {
                     var oldInput = snappedInput;
                     snappedInput = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConnectedInput)));
-                    ConnectionChanged?.Invoke(this, new OutputConnectionChangedEventArgs(Context, oldInput?.Context, snappedInput?.Context));
+                    PropertyChanged?.Invoke(this, new(nameof(ConnectedInput)));
+                    ConnectionChanged?.Invoke(this, new(Context, oldInput?.Context, snappedInput?.Context));
                 }
             }
         }

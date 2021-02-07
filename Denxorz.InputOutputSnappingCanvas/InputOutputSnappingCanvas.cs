@@ -10,7 +10,7 @@ namespace Denxorz.InputOutputSnappingCanvas
     public class InputOutputSnappingCanvas : DragCanvas
     {
         private bool hasSnapped = false;
-        private Point lastSnap = new Point(0, 0);
+        private Point lastSnap = new(0, 0);
 
         public int SnapThresholdX { get; set; } = 5;
         public int SnapThresholdY { get; set; } = 5;
@@ -162,7 +162,7 @@ namespace Denxorz.InputOutputSnappingCanvas
 
         private void Snap(UIElement host, Point cursorLocation, IConnectionInput input, IConnectionOutput output, double xdiff, double ydiff)
         {
-            Point elementBeingDraggedPoint = host.TranslatePoint(new Point(0, 0), this);
+            Point elementBeingDraggedPoint = host.TranslatePoint(new(0, 0), this);
 
             SetLeft(host, elementBeingDraggedPoint.X + xdiff);
             SetTop(host, elementBeingDraggedPoint.Y + ydiff);
@@ -178,8 +178,8 @@ namespace Denxorz.InputOutputSnappingCanvas
         {
             const double visualDistanceBetweenInAndOut = -13;
 
-            Point outputPoint = ((UIElement)output).TranslatePoint(new Point(0, 0), this);
-            Point inputPoint = ((UIElement)input).TranslatePoint(new Point(0, 0), this);
+            Point outputPoint = ((UIElement)output).TranslatePoint(new(0, 0), this);
+            Point inputPoint = ((UIElement)input).TranslatePoint(new(0, 0), this);
 
             xdiff = inputPoint.X - outputPoint.X + visualDistanceBetweenInAndOut;
             ydiff = inputPoint.Y - outputPoint.Y;
@@ -190,7 +190,7 @@ namespace Denxorz.InputOutputSnappingCanvas
 
         private void UnSetSnap()
         {
-            lastSnap = new Point(0, 0);
+            lastSnap = new(0, 0);
             hasSnapped = false;
 
             if (!(ElementBeingDragged is ISnapHost))
