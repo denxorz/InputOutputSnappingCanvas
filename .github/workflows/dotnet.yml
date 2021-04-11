@@ -19,12 +19,11 @@ jobs:
       with:
         dotnet-version: 5.0.x
 
-    # https://github.com/actions/virtual-environments/issues/1090
-    - name: Workaround nuget issue 
-      run: dotnet clean --configuration Release && dotnet nuget locals all --clear
-
     - name: Restore dependencies
       run: dotnet restore
+      with:
+        # https://github.com/actions/virtual-environments/issues/1090
+        includeNuGetOrg: true     
 
     - name: Build
       run: dotnet build --no-restore --configuration Release
