@@ -19,11 +19,12 @@ jobs:
       with:
         dotnet-version: 5.0.x
 
+    # Workaround: https://github.com/actions/virtual-environments/issues/1090
+    - name: Add nuget.org source
+      run: nuget sources add -name "nuget.org" -Source https://api.nuget.org/v3/index.json
+
     - name: Restore dependencies
       run: dotnet restore
-      with:
-        # https://github.com/actions/virtual-environments/issues/1090
-        includeNuGetOrg: true     
 
     - name: Build
       run: dotnet build --no-restore --configuration Release
