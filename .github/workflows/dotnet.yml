@@ -19,11 +19,15 @@ jobs:
       with:
         dotnet-version: 5.0.x
 
+    # https://github.com/actions/virtual-environments/issues/1090
+    - name: Workaround nuget issue 
+      run: dotnet clean --configuration Release && dotnet nuget locals all --clear
+
     - name: Restore dependencies
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --configuration Release
+      run: dotnet build --no-restore --configuration Release
 
     - name: Test
       run: dotnet test --no-build  --configuration Release --verbosity normal
