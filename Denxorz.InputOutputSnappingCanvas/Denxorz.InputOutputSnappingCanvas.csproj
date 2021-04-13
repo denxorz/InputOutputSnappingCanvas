@@ -7,7 +7,7 @@
     
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Denxorz.InputOutputSnappingCanvas</PackageId>
-    <Version>1.5.1</Version>
+    <Version>1.5.2</Version>
     
     <Description>A WPF Canvas which allows easy connecting elements. Each element on the canvas can have zero or multiple in and outputs. These inputs and outputs will snap together.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
