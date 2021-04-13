@@ -16,9 +16,17 @@ namespace Sample
             ColorUpdated?.Invoke(this, EventArgs.Empty);
         }
 
-        internal void UpdateColor(string colorName)
+        internal bool UpdateColor(string colorName)
         {
-            UpdateColor(new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorName)));
+            try
+            {
+                UpdateColor(new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorName)));
+                return true;
+            }
+            catch(FormatException)
+            {
+                return false;
+            }
         }
 
         internal void RemoveColor()
@@ -28,6 +36,11 @@ namespace Sample
 
         internal static string GetColorName(SolidColorBrush brush)
         {
+            if (brush == null)
+            {
+                return string.Empty;
+            }
+
             var results = typeof(Colors)
                 .GetProperties()
                 .Where(p => (Color)p.GetValue(null, null) == brush.Color)

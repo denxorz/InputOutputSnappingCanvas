@@ -7,7 +7,7 @@
     d:DesignHeight="20"
     d:DesignWidth="20"
     mc:Ignorable="d">
-    
+
     <Canvas>
         <Line
             Stroke="Gray"

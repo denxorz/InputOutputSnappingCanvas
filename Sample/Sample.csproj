@@ -18,4 +18,24 @@
     <Resource Include="..\icons8-connected-50.png" Link="icons8-connected-50.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Invert.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Smiley.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Invert.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Smiley.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

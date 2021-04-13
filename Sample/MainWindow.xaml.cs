@@ -16,11 +16,14 @@ namespace Sample
         public ObservableCollection<UserControl> Items { get; } = new ObservableCollection<UserControl>()
         {
            new ColorPrinter { DataContext = new ColorPrinterViewModel(240, 84) },
-           new ColorPrinter { DataContext = new ColorPrinterViewModel(529, 285) },
-           new DarkLight { DataContext = new DarkLightViewModel(260, 205) },
+           new ColorPrinter { DataContext = new ColorPrinterViewModel(579, 90) },
+           new DarkLight { DataContext = new DarkLightViewModel(290, 205) },
            new AnimalPrinter { Left = 421, Top = 24 },
-           new ItemWithColor { DataContext = new ItemWithColorViewModel(429, 120, Brushes.Blue) },
+           new ItemWithColor { DataContext = new ItemWithColorViewModel(29, 205, Brushes.Blue) },
            new ItemWithColor { DataContext = new ItemWithColorViewModel(125, 84, Brushes.Green) },
+           new Smiley { DataContext = new SmileyViewModel(440, 205) },
+           new Invert { DataContext = new InvertViewModel(140, 205) },
+           new Invert { DataContext = new InvertViewModel(400, 110) },
         };
 
         public ObservableCollectionWithAddRange<TreeViewItem> Groups { get; } = new ObservableCollectionWithAddRange<TreeViewItem>();

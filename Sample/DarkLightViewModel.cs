@@ -1,11 +1,13 @@
 ﻿using Denxorz.InputOutputSnappingCanvas;
 using System;
+using System.Windows.Media;
 
 namespace Sample
 {
     public class DarkLightViewModel
     {
         private IConnectionInput inControl;
+        private ColorProvider connectedProvider;
 
         public double Top { get; set; }
         public double Left { get; set; }
@@ -29,6 +31,53 @@ namespace Sample
             inControl.ConnectionChanged += OnConnectionChanged;
         }
 
+        private void UpdateColor(ColorProvider provider)
+        {
+            if (provider?.Color != null)
+            {
+                var inputColorName = ColorProvider.GetColorName(provider.Color);
+
+                if (!LightOutputProvider.UpdateColor($"Light{inputColorName}"))
+                {
+                    LightOutputProvider.UpdateColor(ChangeColorBrightness(provider.Color, 0.5f));
+                }
+
+                if (!DarkOutputProvider.UpdateColor($"Dark{inputColorName}"))
+                {
+                    DarkOutputProvider.UpdateColor(ChangeColorBrightness(provider.Color, -0.5f));
+                }
+            }
+            else
+            {
+                LightOutputProvider.RemoveColor();
+                DarkOutputProvider.RemoveColor();
+            }
+        }
+
+        private static SolidColorBrush ChangeColorBrightness(SolidColorBrush brush, float correctionFactor)
+        {
+            var color = brush.Color;
+            float red = color.R;
+            float green = color.G;
+            float blue = color.B;
+
+            if (correctionFactor < 0)
+            {
+                correctionFactor = 1 + correctionFactor;
+                red *= correctionFactor;
+                green *= correctionFactor;
+                blue *= correctionFactor;
+            }
+            else
+            {
+                red = (255 - red) * correctionFactor + red;
+                green = (255 - green) * correctionFactor + green;
+                blue = (255 - blue) * correctionFactor + blue;
+            }
+
+            return new(Color.FromArgb(color.A, (byte)red, (byte)green, (byte)blue));
+        }
+
         public override string ToString()
         {
             return "Darker/lighter modifier";
@@ -43,16 +92,23 @@ namespace Sample
         {
             if (inControl.GetContextFromConnectedOutput() is ColorProvider provider)
             {
-                var inputColorName = ColorProvider.GetColorName(provider.Color);
-
-                LightOutputProvider.UpdateColor($"Light{inputColorName}");
-                DarkOutputProvider.UpdateColor($"Dark{inputColorName}");
+                connectedProvider = provider;
+                connectedProvider.ColorUpdated += ConnectedProvider_ColorUpdated;
             }
             else
             {
-                LightOutputProvider.RemoveColor();
-                DarkOutputProvider.RemoveColor();
+                if (connectedProvider != null)
+                {
+                    connectedProvider.ColorUpdated -= ConnectedProvider_ColorUpdated;
+                }
+                connectedProvider = null;
             }
+            UpdateColor(connectedProvider);
+        }
+
+        private void ConnectedProvider_ColorUpdated(object sender, EventArgs e)
+        {
+            UpdateColor(connectedProvider);
         }
     }
 }
