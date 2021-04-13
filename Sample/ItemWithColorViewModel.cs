@@ -23,6 +23,11 @@ namespace Sample
             UpdateColor();
         }
 
+        public override string ToString()
+        {
+            return $"Color {Color}";
+        }
+
         private void UpdateColor()
         {
             ColorProvider.UpdateColor(Color);

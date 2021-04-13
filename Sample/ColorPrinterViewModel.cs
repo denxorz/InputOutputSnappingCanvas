@@ -36,6 +36,11 @@ namespace Sample
             UpdateColor(null);
         }
 
+        public override string ToString()
+        {
+            return "Color printer";
+        }
+
         private void UpdateColor(ColorProvider provider)
         {
             Color = provider?.Color;

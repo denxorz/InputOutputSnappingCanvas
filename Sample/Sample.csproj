@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Denxorz.ObservableCollectionWithAddRange" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Denxorz.InputOutputSnappingCanvas\Denxorz.InputOutputSnappingCanvas.csproj" />
   </ItemGroup>
 

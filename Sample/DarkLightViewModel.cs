@@ -29,6 +29,11 @@ namespace Sample
             inControl.ConnectionChanged += OnConnectionChanged;
         }
 
+        public override string ToString()
+        {
+            return "Darker/lighter modifier";
+        }
+
         private void OnConnectionChanging(object sender, InputConnectionChangingEventArgs e)
         {
             e.IsCancelled = !(e.NewOutput is ColorProvider);
