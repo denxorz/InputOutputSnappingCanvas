@@ -232,7 +232,7 @@ namespace Denxorz.InputOutputSnappingCanvas
             {
                 var startItem = startList.First();
 
-                var linkedItems = GetLinkedHosts(hosts, startItem, null).Distinct().ToList();
+                var linkedItems = LinkFinder.Find(hosts, startItem).ToList();
                 foreach (var host in linkedItems)
                 {
                     startList.Remove(host);
@@ -245,31 +245,6 @@ namespace Denxorz.InputOutputSnappingCanvas
             }
 
             return groups;
-        }
-
-        private List<ISnapHost> GetLinkedHosts(List<ISnapHost> hosts, ISnapHost startItem, ISnapHost skip)
-        {
-            var linkedItems = new List<ISnapHost> { startItem };
-
-            foreach (var output in startItem.Outputs.Where(o => o.ConnectedInput != null))
-            {
-                var item = hosts.First(s => s.Inputs.Contains(output.ConnectedInput));
-                if (item != skip)
-                {
-                    linkedItems.AddRange(GetLinkedHosts(hosts, item, startItem));
-                }
-            }
-
-            foreach (var input in startItem.Inputs.Where(o => o.ConnectedOutput != null))
-            {
-                var item = hosts.First(s => s.Outputs.Contains(input.ConnectedOutput));
-                if (item != skip)
-                {
-                    linkedItems.AddRange(GetLinkedHosts(hosts, item, startItem));
-                }
-            }
-
-            return linkedItems;
         }
 
         private void RemoveDeadLinks(IReadOnlyCollection<IConnectionInput> allInputs, IReadOnlyCollection<IConnectionOutput> allOutputs)
