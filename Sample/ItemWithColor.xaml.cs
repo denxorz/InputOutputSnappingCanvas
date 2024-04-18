@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using Denxorz.InputOutputSnappingCanvas;
+﻿using Denxorz.InputOutputSnappingCanvas;
 
-namespace Sample
+namespace Sample;
+
+public partial class ItemWithColor : ISnapHost
 {
-    public partial class ItemWithColor : ISnapHost
-    {
-        public IReadOnlyCollection<IConnectionOutput> Outputs => new IConnectionOutput[] { outControl };
-        public IReadOnlyCollection<IConnectionInput> Inputs => Array.Empty<IConnectionInput>();
+    public IReadOnlyCollection<IConnectionOutput> Outputs => new IConnectionOutput[] { outControl };
+    public IReadOnlyCollection<IConnectionInput> Inputs => Array.Empty<IConnectionInput>();
 
-        public ItemWithColor()
-        {
-            InitializeComponent();
-            DataContextChanged += (s, e) =>  outControl.Context = ((ItemWithColorViewModel)DataContext).ColorProvider;
-        }
+    public ItemWithColor()
+    {
+        InitializeComponent();
+        DataContextChanged += (s, e) =>  outControl.Context = ((ItemWithColorViewModel)DataContext).ColorProvider;
     }
 }

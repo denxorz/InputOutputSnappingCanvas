@@ -1,45 +1,41 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿namespace Denxorz.InputOutputSnappingCanvas;
 
-namespace Denxorz.InputOutputSnappingCanvas
+internal class LinkFinder
 {
-    internal class LinkFinder
+    private readonly IReadOnlyCollection<ISnapHost> all;
+    private readonly List<ISnapHost> linkedItems = new();
+
+    private LinkFinder(IReadOnlyCollection<ISnapHost> allHosts)
     {
-        private readonly IReadOnlyCollection<ISnapHost> all;
-        private readonly List<ISnapHost> linkedItems = new();
+        all = allHosts;
+    }    
 
-        private LinkFinder(IReadOnlyCollection<ISnapHost> allHosts)
-        {
-            all = allHosts;
-        }    
+    public static IReadOnlyCollection<ISnapHost> Find(IReadOnlyCollection<ISnapHost> allHosts, ISnapHost startItem)
+    {
+        var finder = new LinkFinder(allHosts);
+        finder.Find(startItem);
+        return finder.linkedItems;
+    }
 
-        public static IReadOnlyCollection<ISnapHost> Find(IReadOnlyCollection<ISnapHost> allHosts, ISnapHost startItem)
+    private void Find(ISnapHost startItem)
+    {
+        linkedItems.Add(startItem);
+
+        foreach (var output in startItem.Outputs.Where(o => o.ConnectedInput != null))
         {
-            var finder = new LinkFinder(allHosts);
-            finder.Find(startItem);
-            return finder.linkedItems;
+            var item = all.First(s => s.Inputs.Contains(output.ConnectedInput));
+            if (!linkedItems.Contains(item))
+            {
+                Find(item);
+            }
         }
 
-        private void Find(ISnapHost startItem)
+        foreach (var input in startItem.Inputs.Where(o => o.ConnectedOutput != null))
         {
-            linkedItems.Add(startItem);
-
-            foreach (var output in startItem.Outputs.Where(o => o.ConnectedInput != null))
+            var item = all.First(s => s.Outputs.Contains(input.ConnectedOutput));
+            if (!linkedItems.Contains(item))
             {
-                var item = all.First(s => s.Inputs.Contains(output.ConnectedInput));
-                if (!linkedItems.Contains(item))
-                {
-                    Find(item);
-                }
-            }
-
-            foreach (var input in startItem.Inputs.Where(o => o.ConnectedOutput != null))
-            {
-                var item = all.First(s => s.Outputs.Contains(input.ConnectedOutput));
-                if (!linkedItems.Contains(item))
-                {
-                    Find(item);
-                }
+                Find(item);
             }
         }
     }

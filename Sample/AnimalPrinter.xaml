@@ -34,7 +34,7 @@
                     Margin="10,32,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Text="{Binding DataContext.Name}" />
+                    Text="{Binding DataContext.BeastName}" />
             </Grid>
         </Border>
     </Grid>

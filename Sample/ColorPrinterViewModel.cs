@@ -1,82 +1,80 @@
 ﻿using Denxorz.InputOutputSnappingCanvas;
-using System;
 using System.ComponentModel;
 using System.Windows.Media;
 
-namespace Sample
+namespace Sample;
+
+class ColorPrinterViewModel : INotifyPropertyChanged
 {
-    class ColorPrinterViewModel : INotifyPropertyChanged
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    private ColorProvider? connectedProvider;
+
+    private IConnectionInput? inControl;
+
+    public string ColorName { get; private set; } = "[???]";
+    public SolidColorBrush? Color { get; private set; }
+    public double Top { get; set; }
+    public double Left { get; set; }
+
+    public ColorPrinterViewModel() { }
+
+    public ColorPrinterViewModel(double left, double top)
+        : this()
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        Left = left;
+        Top = top;
+    }
 
-        private ColorProvider connectedProvider;
+    public void SetUiControls(IConnectionInput inputControl)
+    {
+        inControl = inputControl;
+        inControl.ConnectionChanged += OnConnectionChanged;
+        inControl.ConnectionChanging += OnConnectionChanging;
 
-        private IConnectionInput inControl;
+        UpdateColor(null);
+    }
 
-        public string ColorName { get; private set; }
-        public SolidColorBrush Color { get; private set; }
-        public double Top { get; set; }
-        public double Left { get; set; }
+    public override string ToString()
+    {
+        return "Color printer";
+    }
 
-        public ColorPrinterViewModel() { }
+    private void UpdateColor(ColorProvider? provider)
+    {
+        Color = provider?.Color;
+        ColorName = Color != null ? ColorProvider.GetColorName(Color) : "[???]";
 
-        public ColorPrinterViewModel(double left, double top)
-            : this()
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Color)));
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ColorName)));
+    }
+
+    private void OnConnectionChanging(object? sender, InputConnectionChangingEventArgs e)
+    {
+        e.IsCancelled = e.NewOutput is not ColorProvider;
+    }
+
+    private void OnConnectionChanged(object? sender, EventArgs e)
+    {
+        if (inControl?.GetContextFromConnectedOutput() is ColorProvider provider)
         {
-            Left = left;
-            Top = top;
+            connectedProvider = provider;
+            connectedProvider.ColorUpdated += ConnectedProvider_ColorUpdated;
         }
-
-        public void SetUiControls(IConnectionInput inputControl)
+        else
         {
-            inControl = inputControl;
-            inControl.ConnectionChanged += OnConnectionChanged;
-            inControl.ConnectionChanging += OnConnectionChanging;
-
-            UpdateColor(null);
-        }
-
-        public override string ToString()
-        {
-            return "Color printer";
-        }
-
-        private void UpdateColor(ColorProvider provider)
-        {
-            Color = provider?.Color;
-            ColorName = Color != null ? ColorProvider.GetColorName(Color) : "[???]";
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Color)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ColorName)));
-        }
-
-        private void OnConnectionChanging(object sender, InputConnectionChangingEventArgs e)
-        {
-            e.IsCancelled = !(e.NewOutput is ColorProvider);
-        }
-
-        private void OnConnectionChanged(object sender, EventArgs e)
-        {
-            if (inControl.GetContextFromConnectedOutput() is ColorProvider provider)
+            if (connectedProvider != null)
             {
-                connectedProvider = provider;
-                connectedProvider.ColorUpdated += ConnectedProvider_ColorUpdated;
+                connectedProvider.ColorUpdated -= ConnectedProvider_ColorUpdated;
             }
-            else
-            {
-                if (connectedProvider != null)
-                {
-                    connectedProvider.ColorUpdated -= ConnectedProvider_ColorUpdated;
-                }
-                connectedProvider = null;
-            }
-
-            UpdateColor(connectedProvider);
+            connectedProvider = null;
         }
 
-        private void ConnectedProvider_ColorUpdated(object sender, EventArgs e)
-        {
-            UpdateColor(connectedProvider);
-        }
+        UpdateColor(connectedProvider);
+    }
+
+    private void ConnectedProvider_ColorUpdated(object? sender, EventArgs e)
+    {
+        UpdateColor(connectedProvider);
     }
 }

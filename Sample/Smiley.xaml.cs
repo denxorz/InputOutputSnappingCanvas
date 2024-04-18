@@ -1,23 +1,20 @@
 ﻿using Denxorz.InputOutputSnappingCanvas;
-using System;
-using System.Collections.Generic;
 
-namespace Sample
+namespace Sample;
+
+public partial class Smiley : ISnapHost
 {
-    public partial class Smiley : ISnapHost
-    {
-        public IReadOnlyCollection<IConnectionOutput> Outputs => Array.Empty<IConnectionOutput>();
-        public IReadOnlyCollection<IConnectionInput> Inputs => new IConnectionInput[] { inControl1, inControl2 };
+    public IReadOnlyCollection<IConnectionOutput> Outputs => Array.Empty<IConnectionOutput>();
+    public IReadOnlyCollection<IConnectionInput> Inputs => new IConnectionInput[] { inControl1, inControl2 };
 
-        public Smiley()
+    public Smiley()
+    {
+        InitializeComponent();
+        DataContextChanged += (s, e) =>
         {
-            InitializeComponent();
-            DataContextChanged += (s, e) =>
-            {
-                ((SmileyViewModel)DataContext).SetUiControls(inControl1, inControl2);
-                inControl1.Context = (SmileyViewModel)DataContext;
-                inControl2.Context = (SmileyViewModel)DataContext;
-            };
-        }
+            ((SmileyViewModel)DataContext).SetUiControls(inControl1, inControl2);
+            inControl1.Context = (SmileyViewModel)DataContext;
+            inControl2.Context = (SmileyViewModel)DataContext;
+        };
     }
 }

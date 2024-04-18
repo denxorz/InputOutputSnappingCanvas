@@ -1,22 +1,19 @@
 ﻿using Denxorz.InputOutputSnappingCanvas;
-using System;
-using System.Collections.Generic;
 
-namespace Sample
+namespace Sample;
+
+public partial class ColorPrinter : ISnapHost
 {
-    public partial class ColorPrinter : ISnapHost
-    {
-        public IReadOnlyCollection<IConnectionOutput> Outputs => Array.Empty<IConnectionOutput>();
-        public IReadOnlyCollection<IConnectionInput> Inputs => new IConnectionInput[] { inControl };
+    public IReadOnlyCollection<IConnectionOutput> Outputs => Array.Empty<IConnectionOutput>();
+    public IReadOnlyCollection<IConnectionInput> Inputs => new IConnectionInput[] { inControl };
 
-        public ColorPrinter()
+    public ColorPrinter()
+    {
+        InitializeComponent();
+        DataContextChanged += (s, e) =>
         {
-            InitializeComponent();
-            DataContextChanged += (s, e) =>
-            {
-                ((ColorPrinterViewModel)DataContext).SetUiControls(inControl);
-                inControl.Context = ((ColorPrinterViewModel)DataContext);
-            };
-        }
+            ((ColorPrinterViewModel)DataContext).SetUiControls(inControl);
+            inControl.Context = ((ColorPrinterViewModel)DataContext);
+        };
     }
 }

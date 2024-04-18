@@ -1,22 +1,12 @@
-﻿using System;
+﻿namespace Denxorz.InputOutputSnappingCanvas;
 
-namespace Denxorz.InputOutputSnappingCanvas
+public class InputConnectionChangingEventArgs(
+    object? intput,
+    object? oldOutput,
+    object? newOutput) : EventArgs
 {
-    public class InputConnectionChangingEventArgs : EventArgs
-    {
-        public bool IsCancelled { get; set; }
-        public object Input { get; }
-        public object OldOutput { get; }
-        public object NewOutput { get; }
-
-        public InputConnectionChangingEventArgs(
-            object intput,
-            object oldOutput,
-            object newOutput)
-        {
-            Input = intput;
-            OldOutput = oldOutput;
-            NewOutput = newOutput;
-        }
-    }
+    public bool IsCancelled { get; set; }
+    public object? Input { get; } = intput;
+    public object? OldOutput { get; } = oldOutput;
+    public object? NewOutput { get; } = newOutput;
 }

@@ -1,6 +1,3 @@
-﻿using System.Collections.Generic;
+﻿namespace Sample;
 
-namespace Sample
-{
-    public record TreeViewItem(string Name, IReadOnlyCollection<TreeViewItem> Members);
-}
+public record TreeViewItem(string Name, IReadOnlyCollection<TreeViewItem> Members);

@@ -24,6 +24,9 @@ A WPF Canvas which allows easy connecting elements. Each element on the canvas c
 
 ## Versions & Release Notes
 
+version 1.5.3:
+* Add net8.0 target
+
 version 1.5.2:
 * Fixes #3, StackoverflowException in GetGroups when having a circle of links
 * Added GetGroups to Sample

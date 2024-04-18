@@ -1,78 +1,76 @@
 ﻿using Denxorz.InputOutputSnappingCanvas;
-using System;
 using System.Windows.Media;
 
-namespace Sample
+namespace Sample;
+
+public class InvertViewModel
 {
-    public class InvertViewModel
+    private IConnectionInput? inControl;
+    private ColorProvider? connectedProvider;
+
+    public double Top { get; set; }
+    public double Left { get; set; }
+
+    public ColorProvider OutputProvider { get; } = new ColorProvider();
+
+    public InvertViewModel() { }
+
+    public InvertViewModel(double left, double top)
+        : this()
     {
-        private IConnectionInput inControl;
-        private ColorProvider connectedProvider;
+        Left = left;
+        Top = top;
+    }
 
-        public double Top { get; set; }
-        public double Left { get; set; }
+    public void SetUiControls(IConnectionInput inputControl)
+    {
+        inControl = inputControl;
+        inControl.ConnectionChanging += OnConnectionChanging;
+        inControl.ConnectionChanged += OnConnectionChanged;
+    }
 
-        public ColorProvider OutputProvider { get; } = new ColorProvider();
+    public override string ToString()
+    {
+        return "Color inverter";
+    }
 
-        public InvertViewModel() { }
-
-        public InvertViewModel(double left, double top)
-            : this()
+    private void UpdateColor(ColorProvider? provider)
+    {
+        if (provider?.Color != null)
         {
-            Left = left;
-            Top = top;
+            OutputProvider.UpdateColor(new SolidColorBrush(Color.FromRgb((byte)~provider.Color.Color.R, (byte)~provider.Color.Color.G, (byte)~provider.Color.Color.B)));
         }
-
-        public void SetUiControls(IConnectionInput inputControl)
+        else
         {
-            inControl = inputControl;
-            inControl.ConnectionChanging += OnConnectionChanging;
-            inControl.ConnectionChanged += OnConnectionChanged;
+            OutputProvider.RemoveColor();
         }
+    }
 
-        public override string ToString()
+    private void OnConnectionChanging(object? sender, InputConnectionChangingEventArgs e)
+    {
+        e.IsCancelled = e.NewOutput is not ColorProvider;
+    }
+
+    private void OnConnectionChanged(object? sender, EventArgs e)
+    {
+        if (inControl?.GetContextFromConnectedOutput() is ColorProvider provider)
         {
-            return "Color inverter";
+            connectedProvider = provider;
+            connectedProvider.ColorUpdated += ConnectedProvider_ColorUpdated;
         }
-
-        private void UpdateColor(ColorProvider provider)
+        else
         {
-            if (provider?.Color != null)
+            if (connectedProvider != null)
             {
-                OutputProvider.UpdateColor(new SolidColorBrush(Color.FromRgb((byte)~provider.Color.Color.R, (byte)~provider.Color.Color.G, (byte)~provider.Color.Color.B)));
+                connectedProvider.ColorUpdated -= ConnectedProvider_ColorUpdated;
             }
-            else
-            {
-                OutputProvider.RemoveColor();
-            }
+            connectedProvider = null;
         }
+        UpdateColor(connectedProvider);
+    }
 
-        private void OnConnectionChanging(object sender, InputConnectionChangingEventArgs e)
-        {
-            e.IsCancelled = !(e.NewOutput is ColorProvider);
-        }
-
-        private void OnConnectionChanged(object sender, EventArgs e)
-        {
-            if (inControl.GetContextFromConnectedOutput() is ColorProvider provider)
-            {
-                connectedProvider = provider;
-                connectedProvider.ColorUpdated += ConnectedProvider_ColorUpdated;
-            }
-            else
-            {
-                if (connectedProvider != null)
-                {
-                    connectedProvider.ColorUpdated -= ConnectedProvider_ColorUpdated;
-                }
-                connectedProvider = null;
-            }
-            UpdateColor(connectedProvider);
-        }
-
-        private void ConnectedProvider_ColorUpdated(object sender, EventArgs e)
-        {
-            UpdateColor(connectedProvider);
-        }
+    private void ConnectedProvider_ColorUpdated(object? sender, EventArgs e)
+    {
+        UpdateColor(connectedProvider);
     }
 }

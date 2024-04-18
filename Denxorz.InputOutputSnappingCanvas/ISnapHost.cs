@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
+﻿namespace Denxorz.InputOutputSnappingCanvas;
 
-namespace Denxorz.InputOutputSnappingCanvas
+public interface ISnapHost
 {
-    public interface ISnapHost
-    {
-        IReadOnlyCollection<IConnectionOutput> Outputs { get; }
-        IReadOnlyCollection<IConnectionInput> Inputs { get; }
-        object DataContext { get; }
-    }
+    IReadOnlyCollection<IConnectionOutput> Outputs { get; }
+    IReadOnlyCollection<IConnectionInput> Inputs { get; }
+    object DataContext { get; }
 }

@@ -1,18 +1,15 @@
-﻿using System;
+﻿namespace Denxorz.InputOutputSnappingCanvas;
 
-namespace Denxorz.InputOutputSnappingCanvas
+public interface IConnectionInput
 {
-    public interface IConnectionInput
-    {
-        event EventHandler<InputConnectionChangedEventArgs> ConnectionChanged;
-        event EventHandler<InputConnectionChangingEventArgs> ConnectionChanging;
+    event EventHandler<InputConnectionChangedEventArgs> ConnectionChanged;
+    event EventHandler<InputConnectionChangingEventArgs> ConnectionChanging;
 
-        IConnectionOutput ConnectedOutput { get; set; }
+    IConnectionOutput? ConnectedOutput { get; set; }
 
-        object GetContextFromConnectedOutput();
+    object? GetContextFromConnectedOutput();
 
-        bool AllowsSnapTo(IConnectionOutput output);
+    bool AllowsSnapTo(IConnectionOutput output);
 
-        object Context { get; set; }
-    }
+    object? Context { get; set; }
 }

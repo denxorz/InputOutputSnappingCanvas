@@ -1,21 +1,11 @@
-﻿using System;
+﻿namespace Denxorz.InputOutputSnappingCanvas;
 
-namespace Denxorz.InputOutputSnappingCanvas
+public class InputConnectionChangedEventArgs(
+    object? input,
+    object? oldOutput,
+    object? newOutput) : EventArgs
 {
-    public class InputConnectionChangedEventArgs : EventArgs
-    {
-        public object Input { get; }
-        public object OldOutput { get; }
-        public object NewOutput { get; }
-
-        public InputConnectionChangedEventArgs(
-            object input,
-            object oldOutput,
-            object newOutput)
-        {
-            Input = input;
-            OldOutput = oldOutput;
-            NewOutput = newOutput;
-        }
-    }
+    public object? Input { get; } = input;
+    public object? OldOutput { get; } = oldOutput;
+    public object? NewOutput { get; } = newOutput;
 }

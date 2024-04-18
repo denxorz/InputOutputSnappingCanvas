@@ -1,23 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows7.0</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Denxorz.ObservableCollectionWithAddRange" Version="2.1.1" />
+    <PackageReference Include="Denxorz.ObservableCollectionWithAddRange" Version="2.1.2" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Denxorz.InputOutputSnappingCanvas\Denxorz.InputOutputSnappingCanvas.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Resource Include="..\icons8-connected-50.png" Link="icons8-connected-50.png" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Invert.xaml.cs">
       <SubType>Code</SubType>
@@ -26,7 +24,6 @@
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <Page Update="Invert.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
@@ -37,5 +34,4 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-
 </Project>

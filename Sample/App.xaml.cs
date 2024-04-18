@@ -1,4 +1,3 @@
-﻿namespace Sample
-{
-    public partial class App { }
-}
+﻿namespace Sample;
+
+public partial class App { }

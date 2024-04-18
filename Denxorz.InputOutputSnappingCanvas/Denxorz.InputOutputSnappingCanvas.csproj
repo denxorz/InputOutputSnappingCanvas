@@ -1,15 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-
   <PropertyGroup>
-    <TargetFrameworks>net452;net472;netcoreapp3.1;net5.0-windows7.0</TargetFrameworks>
+    <TargetFrameworks>net452;net472;netcoreapp3.1;net5.0-windows7.0;net8.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
-    <LangVersion>Latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
     
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <Version>1.5.3</Version>
+
     <PackageId>Denxorz.InputOutputSnappingCanvas</PackageId>
-    <Version>1.5.2</Version>
-    
     <Description>A WPF Canvas which allows easy connecting elements. Each element on the canvas can have zero or multiple in and outputs. These inputs and outputs will snap together.</Description>
+    <Company>Denxorz</Company>
+    <Authors>Dennis Geldhof</Authors>
+    <Copyright>Copyright @ Dennis Geldhof 2024</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Denxorz</Authors>
     <PackageProjectUrl>https://github.com/denxorz/InputOutputSnappingCanvas</PackageProjectUrl>
@@ -17,24 +22,23 @@
     <RepositoryUrl>https://github.com/denxorz/InputOutputSnappingCanvas</RepositoryUrl>
     <Product>Denxorz.InputOutputSnappingCanvas</Product>
     <PackageIcon>icons8-hand-drag-50.png</PackageIcon>
+    <Title>Input+Output Snapping Canvas</Title>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
-
   <ItemGroup Condition=" '$(TargetFramework)' == 'net452' or '$(TargetFramework)' == 'net472'">
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="WPF.JoshSmith.Controls.DragCanvas" Version="2.0.1" />
+    <PackageReference Include="WPF.JoshSmith.Controls.DragCanvas" Version="2.0.2" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="..\..\WPF.JoshSmith.Controls.DragCanvas\icons8-hand-drag-50.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
-
 </Project>
