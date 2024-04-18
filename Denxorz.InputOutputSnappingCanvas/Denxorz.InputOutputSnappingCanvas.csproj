@@ -21,7 +21,7 @@
     <PackageTags>wpf drag canvas snap input output connect</PackageTags>
     <RepositoryUrl>https://github.com/denxorz/InputOutputSnappingCanvas</RepositoryUrl>
     <Product>Denxorz.InputOutputSnappingCanvas</Product>
-    <PackageIcon>icons8-hand-drag-50.png</PackageIcon>
+    <PackageIcon>icons8-input-32.png</PackageIcon>
     <Title>Input+Output Snapping Canvas</Title>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
@@ -32,14 +32,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\icons8-input-32.png" Link="icons8-input-32.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="WPF.JoshSmith.Controls.DragCanvas" Version="2.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\WPF.JoshSmith.Controls.DragCanvas\icons8-hand-drag-50.png">
-      <Pack>True</Pack>
-      <PackagePath>
-      </PackagePath>
-    </None>
     <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

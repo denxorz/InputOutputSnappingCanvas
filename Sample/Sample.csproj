@@ -14,7 +14,7 @@
     <ProjectReference Include="..\Denxorz.InputOutputSnappingCanvas\Denxorz.InputOutputSnappingCanvas.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\icons8-connected-50.png" Link="icons8-connected-50.png" />
+    <Resource Include="..\icons8-input-32.png" Link="icons8-input-32.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Invert.xaml.cs">
